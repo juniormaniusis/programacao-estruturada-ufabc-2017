@@ -45,7 +45,6 @@ int main(){
 	n(0) = min  => a = min
 	n(20) = max => max = min + 20*b => b = (max-min)/20
 	n(x) = min + x*W(max-min)/20
-
 	*/
 
 	for (int x=0;x<=20;x++){
@@ -73,7 +72,7 @@ int main(){
 
 	
 	//histograma das temperaturas na horizontal
-
+/*
 	for (int i = 0; i < 20; i++){
 		printf("Temperaturas entre %6.3lf e %6.3lf: ",
 		 intervalo[i], intervalo[i+1] );
@@ -84,9 +83,51 @@ int main(){
 		}
 		printf("\n");
 	}
+*/
 
+	char histograma[20][20];
 
 	
+	//inicializa o histograma com espaços vazios
+	for(int i = 0; i < 20; i++){
+		for (int j = 0; j < 20; j++)
+		{
+			histograma[i][j] = ' ';
+		}
+	}
+
+	
+	//preenche o histograma
+	for (int i = 0; i < 20; i++){
+		int j = 0;
+
+		while(j <= aux[i] / 122){
+			histograma[i][j] = '*';
+			j++;
+		}
+	}
+	
+	//imprime o histograma na horizontal
+	for (int i = 0; i < 20; i++)
+	{
+		printf("Temperaturas entre %6.3lf e %6.3lf: ",
+		intervalo[i], intervalo[i+1] );
+		for(int j = 0; j < 20; j++)
+		{
+			printf("%c",histograma[i][j] );
+		}
+		printf("\n");
+	}
+
+
+	printf("Histograma na vertical:\n");
+	for (int lin = 19; lin >=0 ; lin--)
+	{
+		for(int col=0; col<20; col++){
+			printf("%c", histograma[col][lin] );
+		}
+		printf("\n");
+	}
 	return 0;
 
 }
