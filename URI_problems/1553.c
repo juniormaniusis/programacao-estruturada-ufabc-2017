@@ -1,48 +1,27 @@
 #include <stdio.h>
-int ocorrencia[100];
-int frequencia_corte;
-int n_perguntas;
-int pergunta;
-int perguntas_adicionadas;
 int main(){
-
-	do{
-		//laço que repete até n==k==0
-		scanf("%d %d", &n_perguntas, &frequencia_corte);
-				//zera ocorrencias
-		for (int i = 0; i < 100; ++i)
-		{
-			ocorrencia[i] = 0;
+int N,k; // numero de perguntas e frequencia min
+int P[100]; // 100 >= P >= 1
+int aux;
+int novas_perguntas;
+	do{	
+		for (int i = 0; i < 100; i++){
+			P[i] = 0; // zera o vetor
 		}
-		for(int i = 0; i < n_perguntas; i++ ){
-			//le e coloca a pergunta no vetor que 
-			//conta as ocorrencias das perguntas
-
-			scanf("%d", &pergunta);
-			ocorrencia[pergunta]++;
+		novas_perguntas = 0;
+		scanf("%d%d", &N, &k);
+		for (int i = 0; i < N; i++){
+			scanf("%d", &aux);
+			P[aux-1]++;
 		}
-		
-
-		
-
-
-		//calcula as ocorrecias
-		perguntas_adicionadas=0;
-		for (int i = 0; i < n_perguntas; i++)
-		{
-
-			if(ocorrencia[i]>=frequencia_corte){
-				perguntas_adicionadas++;
+		for (int i = 0; i < 100; i++){
+			if(P[i] >= k ){
+				novas_perguntas++;
 			}
 		}
-
-		if (n_perguntas>0 && frequencia_corte>0)
-		{
-			printf("%d\n", perguntas_adicionadas );
+		if (N!=0 && k!=0){
+			printf("%d\n", novas_perguntas);
 		}
-
-
-	}while(n_perguntas!=0 || frequencia_corte!=0);
-
+	}while(N!= 0 && k!=0);
 	return 0;
 }
