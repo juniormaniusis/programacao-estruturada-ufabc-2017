@@ -75,18 +75,47 @@ no buscaR(no inicio, int item) {
 }
 
 // 8 (EXERCÍCIO) Devolve o último nó de uma lista.
-no final(no inicio);
-
+no final(no inicio){
+  no x = inicio;
+  while (x->prox != NULL){
+    x = x->prox;
+  }
+  return x;
+}
 // 9. (EXERCÍCIO) Insere nó no final. 
 //    (Supõem que x e inicio são ambos diferentes de NULL.)
 //    (Mas *inicio pode ser NULL.)
-void insere_final(no *inicio, no x);
+void insere_final(no *inicio, no x){
+  if (*inicio != NULL){ 
+    final(*inicio)->prox = x;
+    x->prox = NULL;
+  }else{
+    insere_inicio(inicio, x);
+  }
+}
 
 // 10. (EXERCÍCIO) Insere nó no final, recursivamente. 
 //    (Supõem que x e inicio são ambos diferentes de NULL.)
 //    (Mas *inicio pode ser NULL.)
-void insere_finalR(no *inicio, no x);
+void insere_finalR(no *inicio, no x){
 
+  if (*inicio == NULL){
+    *inicio = x;
+    x->prox = NULL;
+    return;
+  }
+  if ( (*inicio)->prox == NULL)
+  {
+    (*inicio)->prox = x;
+    x->prox = NULL;
+    return;
+  }
+  else
+  {
+    insere_finalR(&(*inicio)->prox, x);
+  }
+  
+}
 // 11. Remove primeiro nó que contém item.
 //    (Supõem que inicio é diferente de NULL.
 //    (*inicio pode ser NULL.)
@@ -139,7 +168,18 @@ void remove_todosR(no *inicio, int item);
 
 // 14. (EXERCÍCIO) Cria uma cópia da lista dada
 //     (copiar em outras posições de memória, é claro).
-no copia(no inicio);
+no copia(no inicio){
+  if (inicio == NULL)
+    return NULL;
+
+  no novo_inicio = novo(inicio->item);
+  no x = inicio->prox;
+  while( x != NULL){
+    insere_final(&novo_inicio, novo(x->item));
+    x = x->prox;
+  }
+  return novo_inicio;
+}
 
 // 15. Inverte a lista.
 void inverte(no *inicio) {
@@ -195,5 +235,5 @@ int testa_inverteR() {
 
 // Troque o corpo da função main para testar outras funções...
 int main() {
-  return testa_inverteR();
+
 }

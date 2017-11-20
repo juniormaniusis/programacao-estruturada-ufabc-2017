@@ -58,12 +58,16 @@ anti-hor´ario. Se os pontos forem colineares devolva 0. */
 int sentido(ponto p, ponto q, ponto r){
 
 	double aux= ((p.x-q.x) * (r.y-q.y) - (p.y-q.y) * (r.x-q.x));
-	if (aux==0)
-		return 0;
-	if (aux>0)
-		return 1;
-	if (aux<0)
-		return -1;
+    if ( (p.x == q.x && p.y==q.y) || (r.x == q.x && r.y==q.y) || (p.x == r.x && p.y==r.y)){
+        return 0;
+    }else{
+        if (aux==0)
+            return 0;
+        if (aux>0)
+            return 1;
+        if (aux<0)
+            return -1;
+    }
 
 }
 
@@ -81,13 +85,6 @@ int cruza(segmento s, segmento t){
 	return 0;
 }
 
-int dentro(ponto p, triangulo t){
-	if(sentido(t.p, t.q, p)!= sentido(t.p, t.r, p) && sentido(t.q, t.p, p)!= sentido(t.q, t.r, p) && sentido(t.r, t.p, p)!=sentido(t.r, t.q, p)){
-		return 1;
-	}else{
-		return 0;
-	}
-}
 /*
 
 int main(){

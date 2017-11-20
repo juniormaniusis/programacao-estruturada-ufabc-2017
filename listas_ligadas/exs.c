@@ -25,7 +25,7 @@ no novo(int item){
 void deleta(no x){
 	free(x);
 }
-// 3. Insere um no no inıcio da lista (como PUSH).
+// 3. Insere um no no inicio da lista (como PUSH).
 // (Supoem que x e inicio sao ambos diferentes de NULL.)
 // (Mas *inicio pode ser NULL.)
 void insere_inicio(no *inicio, no x){
@@ -49,6 +49,7 @@ void imprime(no inicio){
 	no x = inicio;
 	while(x != NULL){
 		printf("%d ", x->item);
+		//printf("%p ", x);
 		x = x->prox;
 	}
 	printf("\n");
@@ -98,18 +99,49 @@ void insere_final(no *inicio, no x){
 	}
 }
 
+// 10. (EXERCÍCIO) Insere nó no final, recursivamente.
+//(Supoem que x e inicio sao ambos diferentes de NULL.)
+//(Mas *inicio pode ser NULL.)
+void insere_finalR(no *inicio, no x){
+
+	if (*inicio == NULL){
+		*inicio = x;
+		x->prox = NULL;
+		return;
+	}
+	if ( (*inicio)->prox == NULL)
+	{
+		(*inicio)->prox = x;
+		x->prox = NULL;
+		return;
+	}
+	else
+	{
+		insere_finalR(&(*inicio)->prox, x);
+	}
+	
+}
+// 14. (EXERCÍCIO) Cria uma cópia da lista dada
+//     (copiar em outras posições de memória, é claro).
+no copia(no inicio){
+	if (inicio == NULL)
+		return NULL;
+
+	no novo_inicio = novo(inicio->item);
+	no x = inicio->prox;
+	while( x != NULL){
+		insere_final(&novo_inicio, novo(x->item));
+		x = x->prox;
+	}
+	return novo_inicio;
+}
 
 int main(){
 	no inicio = NULL;
-	//insere_inicio(&inicio, novo(2));
-	//insere_inicio(&inicio, novo(22));
-	//insere_inicio(&inicio, novo(211));
+	printf("%s\n", "chegou aqui");
+	insere_inicio(&inicio, novo(77));
+	insere_finalR(&inicio, novo(4));
 	imprime(inicio);
-	printf("%p\n", busca(inicio, 2)); 
-	printf("%p\n", buscaR(inicio, 2));
-	//printf("%d\n", final(inicio)->item);
-	printf("aqui\n");
-	insere_final(&inicio, novo(777));
-	imprime(inicio);
+	imprime(copia(inicio));
 
 }
