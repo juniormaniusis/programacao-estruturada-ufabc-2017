@@ -1,0 +1,1 @@
+Apenas refazendo algumas funções de listas ligadas e associando ao uso de arquivos, afim apenas de ser um estudo para a prova e também para a pratica destes conceitos.

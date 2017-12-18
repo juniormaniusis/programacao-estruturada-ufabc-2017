@@ -10,10 +10,13 @@
 no novo(int item){
 	if (livres != NULL){//livres = ponteiro de lista de nos livres
 		no x = livres;
+        x->item = item;
 		livres = livres->prox;
+        x->prox = NULL;
 		return x;
 	}
-	no v = (struct s_no) malloc(1024 * sizeof(struct s_no));
+  //printf("%s\n", "Alocando espaço na memória..");
+	no v = (struct s_no *) malloc(1024 * sizeof(struct s_no));
 	for (int i = 0; i < 1024; i++){
 		insere_inicio(&livres, (v+i));
 	}
@@ -50,8 +53,10 @@ void remove_inicio(no *ini) {
 // 5. Imprime todos os elementos de uma lista
 //    (supondo que sejam inteiros).
 void imprime(no x) {
-  for (; x != NULL; x = x->prox)
-    printf("%d", x->item);
+  for (; x != NULL; x = x->prox){
+    printf("%d ", x->item);
+    //printf("%p\n",x );
+    }
   printf("\n");
 }
 
@@ -101,8 +106,10 @@ void insere_final(no *ini, no x) {
 //    (Supõem que x e ini são ambos diferentes de NULL.)
 //    (Mas *ini pode ser NULL.)
 void insere_finalR(no *ini, no x) {
-  if (*ini == NULL) 
+  if (*ini == NULL) {
     *ini = x;
+    //x->prox = NULL;
+  }
   else
     insere_finalR(&((*ini)->prox), x);
 }
@@ -126,11 +133,39 @@ void remove_um(no *ini, int item) {
 }
 
 // 12. (EXERCÍCIO) Remove todos os nós contendo item.
-void remove_todos(no *ini, int item);
+void remove_todos(no *ini, int item){
+  if (*ini == NULL )
+    return;
+  no x = *ini;
+  no * anterior = ini;
+  no del = NULL;
+  while (x!=NULL){
+    if (x->item == item){
+      del = x;
+      *anterior = x->prox;
+      x = x->prox;
+      deleta(del);
+    }else{
+      anterior = &(x->prox);
+      x = x-> prox;
+    }
+
+  }
+}
 
 // 13. (EXERCÍCIO) Remove todos os nós contendo item, recursivo.
 //     Este fica mais simples que o anterior.
-void remove_todosR(no *ini, int item);
+void remove_todosR(no *ini, int item){
+  if (*ini == NULL)
+    return;
+  if ((*ini)->item == item){
+    *ini = (*ini)->prox;
+    remove_todosR( ini, item);
+  }else{
+    remove_todosR(&((*ini)->prox), item);
+  }
+
+}
 
 // 14. Cria uma cópia da lista dada
 //     (copiar em outras posições de memória, é claro).
@@ -159,9 +194,36 @@ void inverte(no *ini) {
 // 16. (EXERCÍCIO) Função recursiva para inverter uma lista
 //     Agora só com o ponteiro para (o ponteiro para) o
 //     primeiro nó sendo passado como parâmetro.
-void inverteR2(no *ini);
+
+void inverteR2(no *ini){
+    
+    if (*ini == NULL || (*ini)->prox == NULL){
+        
+        return;
+    }
+    
+    inverteR2(&((*ini)->prox));
+    (*ini)->prox->prox = *ini;
+    (*ini)->prox = NULL;
+
+    
+    return;
+}
+////////como fazer inicio apontar para o final???? 
+///////////--------------- RESOLVER ----------
+
+
 int main(){
-	                                                                                                                                                                                                                                                                                                                                                                                                                            
-	return 0;
+  no inicio = NULL;
+  for (int i = 0; i < 5; ++i)
+  {
+    insere_final(&inicio, novo(i));
+  }
+  no aux = final(inicio);
+  imprime(inicio);
+  inverteR2(&inicio);
+  imprime(inicio);
+  imprime(aux); //    :( 
+  return 0;
 
 }

@@ -1,0 +1,13 @@
+	
+
+Faça um programa em C que recebe um argumento de linha de comando (argv[1]) e que decide se a frase contida nesse argumento é uma frase-palíndromo. Exemplos:
+
+roma me tem amor
+
+missa e assim
+
+nos ligou o gilson
+
+socorram me subi no onibus em marrocos
+
+etc.

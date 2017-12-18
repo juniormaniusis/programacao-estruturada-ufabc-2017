@@ -58,16 +58,12 @@ anti-hor´ario. Se os pontos forem colineares devolva 0. */
 int sentido(ponto p, ponto q, ponto r){
 
 	double aux= ((p.x-q.x) * (r.y-q.y) - (p.y-q.y) * (r.x-q.x));
-    if ( (p.x == q.x && p.y==q.y) || (r.x == q.x && r.y==q.y) || (p.x == r.x && p.y==r.y)){
-        return 0;
-    }else{
-        if (aux==0)
-            return 0;
-        if (aux>0)
-            return 1;
-        if (aux<0)
-            return -1;
-    }
+	if (aux==0)
+		return 0;
+	if (aux>0)
+		return 1;
+	if (aux<0)
+		return -1;
 
 }
 
